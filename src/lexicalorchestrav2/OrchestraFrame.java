@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Utilities;
 import javax.swing.undo.UndoManager;
-
+    
 /**
  *
  * @author Jonnel
@@ -392,7 +392,7 @@ public class OrchestraFrame extends javax.swing.JFrame {
                                     lexeme = lexeme.concat("L");
                                     if(i == (sourcecode.length()-1)) //Detects if the line has reached the end
                                     {   //Adds the Lexeme, Line # and Column # to the Lexical Table
-                                        model.addRow(new String[]{lexeme, "BOOL",""+(j+1),""+(i+2)});
+                                        model.addRow(new String[]{lexeme, "BOOLD",""+(j+1),""+(i+2)});
                                         lexeme = "";    //Clears the value for the next Lexeme
                                         check = 1;  //Determines that the lexeme is a reserved word
                                     }
@@ -403,7 +403,7 @@ public class OrchestraFrame extends javax.swing.JFrame {
                                         if(sourcecode.charAt(i) == ' ' || sourcecode.charAt(i) == '\n')
                                         {
                                             //Adds the Lexeme, Line # and Column # to the Lexical Table
-                                            model.addRow(new String[]{lexeme, "BOOL",""+(j+1),""+(i+1)});
+                                            model.addRow(new String[]{lexeme, "BOOLD",""+(j+1),""+(i+1)});
                                             lexeme = "";    //Clears the variable for the next Lexeme
                                             i--;    //LookAhead
                                             check = 1; //Determines that the lexeme is a reserved word
