@@ -50,6 +50,7 @@ public class OrchestraFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel10 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtareaCompiler = new javax.swing.JTextArea();
@@ -65,7 +66,17 @@ public class OrchestraFrame extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblSyntax = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblConstantDeclaration = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblLocalDeclaration = new javax.swing.JTable();
         btnSyntax = new javax.swing.JButton();
         tabErrorTables = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -78,6 +89,19 @@ public class OrchestraFrame extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         tblErrorSemantic = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        btnSemantic = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,6 +152,11 @@ public class OrchestraFrame extends javax.swing.JFrame {
                 LexicalMouseReleased(evt);
             }
         });
+        Lexical.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LexicalActionPerformed(evt);
+            }
+        });
         jPanel1.add(Lexical, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 150, 40));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
@@ -147,9 +176,9 @@ public class OrchestraFrame extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1660, 70));
@@ -206,11 +235,92 @@ public class OrchestraFrame extends javax.swing.JFrame {
 
         tabMainTables.addTab("Syntax", jPanel4);
 
-        jPanel1.add(tabMainTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 250, 740, 560));
+        tblConstantDeclaration.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lexicalorchestrav2/top.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 0, 1660, 160));
+            },
+            new String [] {
+                "Identifier", "Value", "Type"
+            }
+        ));
+        jScrollPane3.setViewportView(tblConstantDeclaration);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Constant Declaration", jPanel5);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Element", "Value", "Type"
+            }
+        ));
+        jScrollPane8.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Global Declaration", jPanel7);
+
+        tblLocalDeclaration.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Identifier", "Value", "Type"
+            }
+        ));
+        jScrollPane9.setViewportView(tblLocalDeclaration);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Local Declaration", jPanel12);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
+        tabMainTables.addTab("Semantics", jPanel11);
+
+        jPanel1.add(tabMainTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 250, 740, 560));
 
         btnSyntax.setBackground(new java.awt.Color(253, 189, 57));
         btnSyntax.setFont(new java.awt.Font("Segoe Script", 2, 24)); // NOI18N
@@ -279,12 +389,13 @@ public class OrchestraFrame extends javax.swing.JFrame {
 
         tabErrorTables.addTab("Syntax Error", jPanel8);
 
+        tblErrorSemantic.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         tblErrorSemantic.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Errors Found"
+                "Identifier", "Message", "Location"
             }
         ));
         jScrollPane7.setViewportView(tblErrorSemantic);
@@ -310,11 +421,25 @@ public class OrchestraFrame extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 1660, 780));
 
+        btnSemantic.setText("Semantic");
+        btnSemantic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSemanticMousePressed(evt);
+            }
+        });
+        jPanel1.add(btnSemantic, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 50, -1, 50));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lexicalorchestrav2/top.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1660, 160));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 4, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -10392,6 +10517,208 @@ public class OrchestraFrame extends javax.swing.JFrame {
         else
             addToSyntaxTable("<nextbooldec>", "null");
     }
+    
+    
+    //Semantic Program Constant Declarations
+    
+    String scope = null;
+    String parentDataType = null;
+    String identifier = null;
+    String value = null;
+    String datatype = null;
+    String literalType = null;
+    
+    String getItem()
+    {
+        //System.out.println("TokenPos: "+tokenPos-2);
+        String item = tblLexeme.getValueAt(tokenPos-2, 0).toString();
+        return item;
+    }
+    
+    void addToLocalDeclarationTable()
+    {
+        DefaultTableModel model = (DefaultTableModel)tblLocalDeclaration.getModel();
+        
+        model.addRow(new Object[] {identifier, value, parentDataType});
+    }
+        
+    void addToSemanticErrorTable()
+    {
+        DefaultTableModel semanticerror = (DefaultTableModel)tblErrorSemantic.getModel();
+        
+        semanticerror.addRow(new Object[] {tblLexeme.getModel().getValueAt(tokenPos-2, 0), "Variable "+tblLexeme.getModel().getValueAt(tokenPos-2, 0)+
+        " is Already Defined", "Line: "+ tblLexeme.getModel().getValueAt(tokenPos-2, 2)+" Column "+tblLexeme.getModel().getValueAt(tokenPos-2, 3)}); 
+    }
+    
+    void semantic_program()
+    {
+        if(checker(PRELUDE))
+        {
+            if(checker(CONCERT))
+            {
+                scope = "concert";
+                if(checker(OPENPARENTHESIS))
+                {
+                    if(checker(CLOSEPARENTHESIS))
+                    {
+                        if(checker(OPENCURLYBRACE))
+                        {
+                            semantic_declaration();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    String getParentDataType()
+    {
+        switch(token)
+        {
+            case INT:
+                checker(INT); return "INT";
+            case FLOAT:
+                checker(FLOAT); return "FLOAT";
+            case CHAR:
+                checker(CHAR); return "CHAR";
+            case STRING:
+                checker(STRING); return "STRING";
+            case BOOL:
+                checker(BOOL); return "BOOL";
+        }
+        return null;
+    }
+    
+    void semantic_declaration()
+    {
+        switch(token)
+        {
+            case INT: case FLOAT: case CHAR: case STRING: case BOOL:
+                parentDataType = getParentDataType();
+                if(checker(IDENTIFIER))
+                {
+                    if(scope == "concert")
+                    {
+                        String text = getItem();
+                        identifier = text;
+                        concert_checkAlreadyDefined(text);
+                    }
+                    semantic_valueInitialize();
+                    semantic_nextVariable();
+                    
+                    if(checker(SEMICOLON))
+                    {
+                        semantic_declaration();
+                    }
+                }
+        }
+    }
+    
+    void semantic_valueInitialize()
+    {
+        if(checker(EQUAL))
+        {
+            semantic_value();
+            addToLocalDeclarationTable();
+        }
+        else
+        {
+            value = null;
+            addToLocalDeclarationTable();
+        }
+    }
+    
+    void semantic_nextVariable()
+    {
+        switch(token)
+        {
+            case COMMA:
+                checker(COMMA);
+                if(checker(IDENTIFIER))
+                {
+                    if(scope == "concert")
+                    {
+                        String text = getItem();
+                        identifier = text;
+                        concert_checkAlreadyDefined(text);
+                    }
+                    semantic_valueInitialize();
+                    semantic_nextVariable();
+                }
+            break;
+        }
+    }
+    
+    void semantic_value()
+    {
+        switch(token)
+        {
+            case IDENTIFIER:
+                break;
+            
+            case INTEGERLITERAL:
+                checker(INTEGERLITERAL);
+                value = getItem();
+                datatype = "INT";
+                literalType = "INT Literal";
+                break;
+                
+            case FLOATLITERAL:
+                checker(FLOATLITERAL);
+                value = getItem();
+                datatype = "FLOAT";
+                literalType = "FLOAT Literal";
+                break;
+                
+            case CHARLITERAL:
+                checker(CHARLITERAL);
+                value = getItem();
+                datatype = "CHAR";
+                literalType = "CHAR Literal";
+                break;
+                
+            case STRINGLITERAL:
+                checker(STRINGLITERAL);
+                value = getItem();
+                datatype = "STRING";
+                literalType = "STRING Literal";
+                break;
+                
+            case BOOLLITERAL:
+                checker(BOOLLITERAL);
+                value = getItem();
+                datatype = "BOOL";
+                literalType = "BOOL Literal";
+                break;
+        }
+    }
+   
+    void concert_checkAlreadyDefined(String identifier)
+    {
+        boolean isError = false;
+       
+//        int identifierrow = tblIdentifier.getRowCount();
+//        for(int i = 0; i < identifierrow; i++)
+//        {
+//            if(identifier.equals(tblIdentifier.getValueAt(i, 0).toString()))
+//            {
+//                semanticerror.addRow(new Object[] {tblLexeme.getModel().getValueAt(tokenpost-2, 0), "Variable "+tblLexeme.getModel().getValueAt(tokenpost-2, 0)+" is Already Defined", tblLexeme.getModel().getValueAt(tokenpost-2, 2)}); 
+//            }
+//        }
+        
+        int identifierrow1 = tblLocalDeclaration.getRowCount();
+        for(int i = 0; i < identifierrow1; i++)
+        {
+            if(identifier.equals(tblLocalDeclaration.getValueAt(i, 0).toString()))
+            {
+                addToSemanticErrorTable();
+            }
+        }
+        
+       
+            
+    }
+
    
     private void btnSyntaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSyntaxActionPerformed
         // TODO add your handling code here:
@@ -10421,13 +10748,11 @@ public class OrchestraFrame extends javax.swing.JFrame {
         hasError = false;
         tokenPos = 0;
         removeNotNeed();
-        tabMainTables.setSelectedIndex(1);
         token = getToken();
-        System.out.println("AS: "+token);
         production_program();
             
         tabErrorTables.setSelectedIndex(1);
-        
+        tabMainTables.setSelectedIndex(1);
         if(tblErrorSyntax.getRowCount() == 0) //check the error table of Lexical Error Table and THERE IS NO ERROR
         {
             JOptionPane.showMessageDialog(null, "No Syntax Error Detected!");
@@ -10437,6 +10762,44 @@ public class OrchestraFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Syntax Error Detected!");
         }
     }//GEN-LAST:event_btnSyntaxMousePressed
+
+    private void LexicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LexicalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LexicalActionPerformed
+
+    private void btnSemanticMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSemanticMousePressed
+        // TODO add your handling code here:
+        DefaultTableModel modelLocalDeclaration = (DefaultTableModel) tblLocalDeclaration.getModel(); 
+        DefaultTableModel modelSemanticError = (DefaultTableModel) tblErrorSemantic.getModel(); 
+        int rowssemantic = modelLocalDeclaration.getRowCount(); 
+        for(int i = rowssemantic - 1; i >=0; i--)
+        {
+           modelLocalDeclaration.removeRow(i); 
+        }
+        int rowSemanticError = modelSemanticError.getRowCount();
+        for(int i = rowSemanticError - 1; i >=0; i--)
+        {
+           modelSemanticError.removeRow(i); 
+        }
+        
+        
+        tokenPos = 0;
+        removeNotNeed();
+        token = getToken();
+        semantic_program();
+            
+        tabErrorTables.setSelectedIndex(2);
+        tabMainTables.setSelectedIndex(2);
+        if(tblErrorSemantic.getRowCount() == 0) //check the error table of Semantic Error Table and THERE IS NO ERROR
+        {
+            JOptionPane.showMessageDialog(null, "No SEMANTIC Error Detected!");
+        }
+        else
+        { 
+            JOptionPane.showMessageDialog(null, "SEMANTIC Error Detected!");
+        }
+        
+    }//GEN-LAST:event_btnSemanticMousePressed
     public int colNum;
     /**
      * @param args the command line arguments
@@ -10476,31 +10839,44 @@ public class OrchestraFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Lexical;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnSemantic;
     private javax.swing.JButton btnSyntax;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblRowCol;
     private javax.swing.JTabbedPane tabErrorTables;
     private javax.swing.JTabbedPane tabMainTables;
+    private javax.swing.JTable tblConstantDeclaration;
     private javax.swing.JTable tblError;
     private javax.swing.JTable tblErrorSemantic;
     private javax.swing.JTable tblErrorSyntax;
     private javax.swing.JTable tblLexeme;
+    private javax.swing.JTable tblLocalDeclaration;
     private javax.swing.JTable tblSyntax;
     private javax.swing.JTextArea txtareaCompiler;
     // End of variables declaration//GEN-END:variables
