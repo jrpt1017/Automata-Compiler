@@ -51,6 +51,7 @@ public class OrchestraFrame extends javax.swing.JFrame {
 
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel10 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtareaCompiler = new javax.swing.JTextArea();
@@ -77,6 +78,9 @@ public class OrchestraFrame extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         tblLocalDeclaration = new javax.swing.JTable();
+        jPanel14 = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tblIdentifier = new javax.swing.JTable();
         btnSyntax = new javax.swing.JButton();
         tabErrorTables = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -100,6 +104,17 @@ public class OrchestraFrame extends javax.swing.JFrame {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
@@ -306,6 +321,29 @@ public class OrchestraFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Local Declaration", jPanel12);
+
+        tblIdentifier.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Identifier", "Value", "Type"
+            }
+        ));
+        jScrollPane10.setViewportView(tblIdentifier);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Identifier", jPanel14);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -9393,7 +9431,7 @@ public class OrchestraFrame extends javax.swing.JFrame {
             {
                 addToSyntaxTable("<nextarrint>","Identifier");
                 if(checker(OPENBRACKET))
-                {
+                {   
                     addToSyntaxTable("<nextarrint>","[");
                     addToSyntaxTable("<nextarrint>","<size>");
                         production_size();
@@ -10541,19 +10579,44 @@ public class OrchestraFrame extends javax.swing.JFrame {
         
         model.addRow(new Object[] {identifier, value, parentDataType});
     }
+    void addToConstantDeclarationTable()
+    {
+        DefaultTableModel model = (DefaultTableModel)tblConstantDeclaration.getModel();
         
-    void addToSemanticErrorTable()
+        model.addRow(new Object[] {identifier, value, parentDataType});
+    }
+    void addToIdentifierTable()
+    {
+        DefaultTableModel model = (DefaultTableModel)tblIdentifier.getModel();
+        
+        model.addRow(new Object[] {identifier, value, parentDataType});
+    }
+        
+    void addToSemanticErrorTable(int errorCode)
     {
         DefaultTableModel semanticerror = (DefaultTableModel)tblErrorSemantic.getModel();
-        
-        semanticerror.addRow(new Object[] {tblLexeme.getModel().getValueAt(tokenPos-2, 0), "Variable "+tblLexeme.getModel().getValueAt(tokenPos-2, 0)+
-        " is Already Defined", "Line: "+ tblLexeme.getModel().getValueAt(tokenPos-2, 2)+" Column "+tblLexeme.getModel().getValueAt(tokenPos-2, 3)}); 
+        if(errorCode == 1)
+        {
+            semanticerror.addRow(new Object[] {tblLexeme.getModel().getValueAt(tokenPos-2, 0), "Variable "+tblLexeme.getModel().getValueAt(tokenPos-2, 0)+
+            " is Already Defined", "Line: "+ tblLexeme.getModel().getValueAt(tokenPos-2, 2)+" Column "+tblLexeme.getModel().getValueAt(tokenPos-2, 3)}); 
+        }
+        else if(errorCode == 2)
+        {
+            semanticerror.addRow(new Object[] {tblLexeme.getModel().getValueAt(tokenPos-2, 0), "Array size must be >= 1 but <= 10000", "Line: "+ tblLexeme.getModel().getValueAt(tokenPos-2, 2)+" Column "+tblLexeme.getModel().getValueAt(tokenPos-2, 3)});
+        }
+        else if(errorCode == 3)
+        {
+            semanticerror.addRow(new Object[] {tblLexeme.getModel().getValueAt(tokenPos-2, 0), "Variable "+tblLexeme.getModel().getValueAt(tokenPos-2, 0)+
+            " is Already Defined", "Line: "+ tblLexeme.getModel().getValueAt(tokenPos-2, 2)+" Column "+tblLexeme.getModel().getValueAt(tokenPos-2, 3)}); 
+        }
     }
     
     void semantic_program()
     {
+        
         if(checker(PRELUDE))
         {
+            semantic_global();
             if(checker(CONCERT))
             {
                 scope = "concert";
@@ -10567,6 +10630,119 @@ public class OrchestraFrame extends javax.swing.JFrame {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    void semantic_global()
+    {
+        if(checker(RECORDS))
+        {
+            //semantic_struct();
+        }
+        else if(checker(CONST))
+        {
+            scope = "const";
+            semantic_const();
+        }
+        else if(checker(WORLDTOUR))
+        {
+            //semantic_varglobaldec();
+        }
+        else if(checker(INTERLUDE))
+        {    
+            //semantic_functiondef();
+        }       
+    }
+    
+    void semantic_const()
+    {
+        parentDataType = getParentDataType();
+        if(checker(IDENTIFIER))
+        {
+            if(scope == "concert")
+            {
+                String text = getItem();
+                identifier = text;
+                concert_checkAlreadyDefined(text);
+            }
+            else if(scope == "function")
+            {
+                
+            }
+            else
+            {
+                String text = getItem();
+                identifier = text;
+                checkAlreadyDefined(text);
+            }
+            semantic_const_valueInitialize();
+            addToConstantDeclarationTable();
+            addToIdentifierTable();
+            
+            semantic_const_nextVariable();
+            if(checker(SEMICOLON))
+            {
+                semantic_global();
+            }
+           
+        }
+    }
+    
+    void semantic_const_nextVariable()
+    {
+        switch(token)
+        {
+            case COMMA:
+                checker(COMMA);
+                if(checker(IDENTIFIER))
+                {
+                    if(scope == "concert")
+                    {
+                        String text = getItem();
+                        identifier = text;
+                        concert_checkAlreadyDefined(text);
+                    }
+                    else if(scope == "function")
+                    {
+
+                    }
+                    else
+                    {
+                        String text = getItem();
+                        identifier = text;
+                        checkAlreadyDefined(text);
+                    }
+                    semantic_const_valueInitialize();
+                    addToConstantDeclarationTable();
+                    addToIdentifierTable();
+
+                    semantic_const_nextVariable();
+                }
+            break;
+        }
+    }
+    
+    void semantic_const_valueInitialize()
+    {
+       switch(token)
+       {
+            case EQUAL:
+               checker(EQUAL);
+               semantic_value();
+               break;
+        }
+    }
+    
+    void checkAlreadyDefined(String identifier)
+    {
+        int identifierrow = tblIdentifier.getRowCount();
+        for(int i = 0; i < identifierrow; i++)
+        {
+            if(identifier.equals(tblIdentifier.getValueAt(i, 0).toString()))
+            {
+                errorCode = 3;
+                addToSemanticErrorTable(3);
             }
         }
     }
@@ -10613,7 +10789,10 @@ public class OrchestraFrame extends javax.swing.JFrame {
                 }
         }
     }
-    
+    String array1D = null;
+    String array2d = null;
+    String arraySize = null;
+    int errorCode;
     void semantic_valueInitialize()
     {
         if(checker(EQUAL))
@@ -10621,10 +10800,97 @@ public class OrchestraFrame extends javax.swing.JFrame {
             semantic_value();
             addToLocalDeclarationTable();
         }
+        else if(checker(OPENBRACKET))
+        {
+            semantic_arraySize();
+            array1D = arraySize;
+            if(checker(CLOSEBRACKET))
+            {
+                semantic_2dArray();
+            }
+            addToLocalDeclarationTable();
+        }
         else
         {
             value = null;
             addToLocalDeclarationTable();
+        }
+    }
+    
+    void semantic_2dArray()
+    {
+        switch(token)
+        {
+            case EQUAL: //array values
+                break;
+                
+            case OPENBRACKET: //2darray
+                checker(OPENBRACKET);
+                semantic_arraySize();
+                array2d = arraySize;
+                if(checker(CLOSEBRACKET))
+                {
+                    semantic_2dArrayValue();
+                }
+        }
+    }
+    
+    void semantic_2dArrayValue()
+    {
+        switch(token)
+        {
+            case EQUAL:
+                break;
+                
+            default: 
+        }
+    }
+    
+    void semantic_arraySize()
+    {
+        switch(token)
+        {
+            case IDENTIFIER: case INTEGERLITERAL:
+                semantic_value1();
+                break;
+                
+            case OPENPARENTHESIS: //mathexpr
+                break;
+        }
+    }
+    
+    void semantic_value1()
+    {
+        switch(token)
+        {
+            case IDENTIFIER:
+                checker(IDENTIFIER);
+                if(scope == "concert")
+                {
+                    String text = getItem();
+                    identifier = text;
+                    concert_checkAlreadyDefined(text);
+                }
+                break;
+            
+            case INTEGERLITERAL:
+                checker(INTEGERLITERAL);
+                value = getItem();
+                datatype = "INT";
+                literalType = "INT Literal";
+                arraySize = getItem();
+                checkArraySize(Integer.parseInt(arraySize));
+                System.out.println("SIZE: "+arraySize);
+                break;
+        }
+    }
+    
+    void checkArraySize(int arraySizeValue)
+    {
+        if(arraySizeValue > 1000 || arraySizeValue < 1)
+        {
+            errorCode = 2; //wrong array size;
+            addToSemanticErrorTable(2);
         }
     }
     
@@ -10697,27 +10963,27 @@ public class OrchestraFrame extends javax.swing.JFrame {
     {
         boolean isError = false;
        
-//        int identifierrow = tblIdentifier.getRowCount();
-//        for(int i = 0; i < identifierrow; i++)
-//        {
-//            if(identifier.equals(tblIdentifier.getValueAt(i, 0).toString()))
-//            {
-//                semanticerror.addRow(new Object[] {tblLexeme.getModel().getValueAt(tokenpost-2, 0), "Variable "+tblLexeme.getModel().getValueAt(tokenpost-2, 0)+" is Already Defined", tblLexeme.getModel().getValueAt(tokenpost-2, 2)}); 
-//            }
-//        }
+        int identifierrow = tblIdentifier.getRowCount();
+        for(int i = 0; i < identifierrow; i++)
+        {
+            if(identifier.equals(tblIdentifier.getValueAt(i, 0).toString()))
+            {
+                errorCode = 1;
+                addToSemanticErrorTable(errorCode);
+            }
+        }
         
         int identifierrow1 = tblLocalDeclaration.getRowCount();
         for(int i = 0; i < identifierrow1; i++)
         {
             if(identifier.equals(tblLocalDeclaration.getValueAt(i, 0).toString()))
             {
-                addToSemanticErrorTable();
+                errorCode = 1;
+                addToSemanticErrorTable(errorCode);
             }
         }
-        
-       
-            
-    }
+      
+     }
 
    
     private void btnSyntaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSyntaxActionPerformed
@@ -10848,6 +11114,8 @@ public class OrchestraFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -10857,6 +11125,7 @@ public class OrchestraFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -10875,6 +11144,7 @@ public class OrchestraFrame extends javax.swing.JFrame {
     private javax.swing.JTable tblError;
     private javax.swing.JTable tblErrorSemantic;
     private javax.swing.JTable tblErrorSyntax;
+    private javax.swing.JTable tblIdentifier;
     private javax.swing.JTable tblLexeme;
     private javax.swing.JTable tblLocalDeclaration;
     private javax.swing.JTable tblSyntax;
